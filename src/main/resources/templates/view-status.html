@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Status</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .no-bookings {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Vehicle Service Management System 🚗
+        </div>
+        
+        <h2>Your Bookings</h2>
+        
+        <div th:if="${bookings.empty}">
+            <p class="no-bookings">No bookings found. Would you like to <a th:href="@{/book-service}">book a service</a>?</p>
+        </div>
+        
+        <table th:unless="${bookings.empty}">
+            <thead>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Vehicle Number</th>
+                    <th>Appointment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="b : ${bookings}">
+                    <td th:text="${b.serviceType}"></td>
+                    <td th:text="${b.vehicleNumber}"></td>
+                    <!-- Choose one of these date formatting options -->
+                    <!-- Option 1: For LocalDate -->
+                    <!-- <td th:text="${#temporals.format(b.appointmentDate, 'dd-MM-yyyy')}"></td> -->
+                    
+                    <!-- Option 2: For java.util.Date -->
+                    <!-- <td th:text="${#dates.format(b.appointmentDate, 'dd-MM-yyyy')}"></td> -->
+                    
+                    <!-- Option 3: Default format if others don't work -->
+                     <td th:text="${b.appointmentDate}"></td> 
+                </tr>
+            </tbody>
+        </table>
+        
+        <a th:href="@{/dashboard}">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vehicle Service Bill</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+        }
+
+        .invoice-box {
+            background: #fff;
+            max-width: 700px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .invoice-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .details-table th,
+        .details-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .details-table th {
+            background-color: #f7f7f7;
+            width: 40%;
+        }
+
+        .total-section {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer-links {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-box">
+    <div class="invoice-header">
+        <h1>Vehicle Service Invoice</h1>
+    </div>
+
+    <table class="details-table">
+        <tr>
+            <th>Customer</th>
+            <td th:text="${booking.user.fullName}">Full Name</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${booking.user.email}">email@example.com</td>
+        </tr>
+        <tr>
+            <th>Service Type</th>
+            <td th:text="${booking.serviceType}">Service</td>
+        </tr>
+        <tr>
+            <th>Vehicle Number</th>
+            <td th:text="${booking.vehicleNumber}">Vehicle No</td>
+        </tr>
+        <tr>
+            <th>Appointment Date</th>
+            <td th:text="${booking.appointmentDate}">YYYY-MM-DD</td>
+        </tr>
+    </table>
+
+    <div class="total-section">
+        Total Price: ₹<span th:text="${booking.price}">0</span>
+    </div>
+
+    <div class="footer-links">
+        <a href="/dashboard">← Back to Dashboard</a> |
+        <a th:href="@{'/bill/download/' + ${booking.id}}" target="_blank">⬇ Download PDF</a>
+    </div>
+</div>
+</body>
+</html>

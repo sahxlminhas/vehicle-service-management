@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                        url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1283&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #3498db;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+        
+        input {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        input:hover {
+            border-color: #bdc3c7;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+        
+        .message a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .message a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        
+        .message a:hover {
+            color: #2980b9;
+        }
+        
+        .message a:hover::after {
+            width: 100%;
+        }
+        
+        .error {
+            color: #e74c3c;
+            background-color: #fadbd8;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .success {
+            color: #27ae60;
+            background-color: #d5f5e3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Vehicle Service Management System 🚗
+        </div>
+        
+        <h2>User Registration</h2>
+        
+        <div th:if="${error}" class="error">[[${error}]]</div>
+        <div th:if="${success}" class="success">[[${success}]]</div>
+        
+        <form th:action="@{/register}" method="post" th:object="${user}">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" required placeholder="Enter your full name">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required placeholder="Enter your email">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" required placeholder="Create a password">
+            
+            <button type="submit">Register</button>
+        </form>
+        
+        <p class="message">Already have an account? <a th:href="@{/login}">Login here</a>.</p>
+    </div>
+</body>
+</html>
